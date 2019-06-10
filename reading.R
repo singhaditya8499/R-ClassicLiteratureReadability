@@ -7,10 +7,8 @@ books_refined <- books_by_download %>% select(author,title,words,syllables,sente
 top_ten_authors <- books_refined %>% head(10) %>% pull(author)
 # top_ten_authors
 
-author_books <- books_refined %>% filter(author %in% top_ten_authors) %>% arrange(author)
-# author_books
-
-reading_ease <- author_books %>% mutate(flesch_reading_ease = 206.835 - 1.015*(words / sentences) - 84.6*(syllables / words))
+authors_books <- books_refined %>% filter(author %in% top_ten_authors) %>% arrange(author)
+reading_ease <- authors_books %>% mutate(flesch_reading_ease = 206.835 - 1.015*(words / sentences) - 84.6*(syllables / words))
 reading_grade <- reading_ease %>% mutate(flesch_kincaid_grade_level = 0.39*(words/sentences) + 11.8*(syllables/words) - 15.59)
 
 reading_grouped <- reading_grade %>% group_by(author)
